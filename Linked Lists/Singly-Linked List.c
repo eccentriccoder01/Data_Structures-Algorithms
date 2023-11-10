@@ -34,4 +34,9 @@ void display(struct Node *h){
         node=h->link;
     }
 }
-void displayRecursive
+void displayRecursive(struct Node *h){
+    if(h==NULL) return;
+    printf("%d",h->info);
+    displayRecursive(h->link);
+}
+void reverse()
