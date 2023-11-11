@@ -39,4 +39,22 @@ void displayRecursive(struct Node *h){
     printf("%d",h->info);
     displayRecursive(h->link);
 }
-void reverse()
+static void reverse(struct Node **h){
+    struct Node *prev=NULL, *curr=*h, *next=NULL;
+    while(curr!=NULL){
+        next=curr->link; curr->link=prev;
+        prev=curr; curr->next; 
+    }
+    *h=prev;
+}
+void reverseDisplay(struct Node *h){
+    struct Node *curr=h, *temp=NULL;
+    while(curr!=NULL){
+        struct Node *nextNode=curr->link;
+        curr->link=temp; temp=curr; curr->nextNode;
+    }
+    while(temp!=NULL){
+        printf("%d ->",curr->info);
+        curr=curr->link;
+    }
+}
