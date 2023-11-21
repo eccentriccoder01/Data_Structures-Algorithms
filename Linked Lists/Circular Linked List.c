@@ -54,7 +54,28 @@ int pop(struct Node **last){
         printf("Underflow"); return -1;
     }
     if((*last)->link==(*last)){
-        free(*last); (*last)=NULL; return -1;
+        int data = (*last)->info; free(*last); 
+        (*last)=NULL; return data;
     }
-    (*last)==()
+    struct Node *curr=*last;
+    while(curr->link!=(*last)) curr=curr->link;
+    int data=(*last)->info; free(*last);
+    (*last)=curr; return data;
+}
+int deleteAtP(struct Node **last, int p){
+    if(p>size(*last)+1){
+        printf("Invalid Position!"); return -1;
+    }
+    if(*last==NULL){
+        printf("Underflow!"); return -1;
+    }
+    if(size(*last)==1){
+        int data=(*last)->info; free(*last); 
+        *last=NULL; return data;
+    }
+    struct Node *curr=*last;
+    for(int i=1;i<p;i++) curr=curr->link;
+    struct Node *temp=curr->link; int data=temp->info;
+    curr->link=curr->link->link;
+    free(temp); return data;
 }
