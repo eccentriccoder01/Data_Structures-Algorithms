@@ -11,11 +11,12 @@ int binary(int a[], int n, int data){
     printf("Element Doesn't Exist in The Array!"); return -1;
 }
 int binaryRecursive(int a[], int l, int r, int data){
+    // If array is not empty
     if(l<=r){
         int m=l+(r-l)/2;
-        if(a[m]==data) return m;
-        if(a[m]<data) return binaryRecursive(a, m+1, r, data);
-        else return binaryRecursive(a, l, m-1, data);
+        if(a[m]==data) return m; // Element found
+        if(a[m]<data) return binaryRecursive(a, m+1, r, data); // Search right
+        else return binaryRecursive(a, l, m-1, data); // Search left
     }
-    printf("Element Doesn't Exist in The Array!"); return -1;
+    printf("Element Doesn't Exist in The Array!"); return -1; // Element not found
 }
