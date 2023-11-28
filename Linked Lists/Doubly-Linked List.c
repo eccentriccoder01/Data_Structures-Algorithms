@@ -117,6 +117,13 @@ int pop(struct Node **start){
 }
 // Delete node at given position
 int deleteAtP(struct Node *start, int p){
+        if(p>size(*start)){
+        printf("Invalid Position! The size of the list is %d",size(*start)); return;
+    }
+    if((*start)->next==NULL){
+        int data=(*start)->info; free(*start);
+        *start=NULL; return data; 
+    }  
     struct Node *curr=start;
 
     // Loop to the previous node of the node to be deleted
