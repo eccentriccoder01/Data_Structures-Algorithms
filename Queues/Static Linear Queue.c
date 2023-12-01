@@ -9,6 +9,6 @@ int isEmpty(int front,int rear){
     if(front==rear) return 1;
     return 0;
 }
-void enqueue(int a[],int data){
-    
+void enqueue(int a[],int rear,int data){
+    if(isFull(rear))
 }
