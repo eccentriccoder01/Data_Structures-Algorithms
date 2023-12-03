@@ -23,10 +23,15 @@ struct Node *maxNode(struct Node *root){
     while((curr && curr->right)!=NULL) curr=curr->right;
     return curr;
 }
+// insert node with value data
 struct Node *insert(struct Node **root, int data){
-    if((*root)==NULL)  (*root)=newNode(data);
+    // if tree is empty
+    if((*root)==NULL) (*root)=newNode(data);
+    // if value is less than root value
     else if(data<(*root)->key) (*root)->left=insert(&(*root)->left,data);
+    // if value is greater than root value
     else if(data>(*root)->key) (*root)->right=insert(&(*root)->right,data);
+    // if value is already present in tree
     else printf("Duplicate Node!");
     return (*root);
 }
