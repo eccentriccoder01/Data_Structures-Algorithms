@@ -10,5 +10,7 @@ int isEmpty(int front,int rear){
     return 0;
 }
 void enqueue(int a[],int rear,int data){
-    if(isFull(rear))
+    if(isFull(rear)){
+        printf("Overflow!"); return;
+    }
 }
