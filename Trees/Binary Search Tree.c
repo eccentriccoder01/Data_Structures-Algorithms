@@ -18,10 +18,11 @@ struct Node *minNode(struct Node *root){
     while((curr && curr->left)!=NULL) curr=curr->left;
     return curr;
 }
+// Find the maximum node in a BST
 struct Node *maxNode(struct Node *root){
-    struct Node *curr=root;
-    while((curr && curr->right)!=NULL) curr=curr->right;
-    return curr;
+    struct Node *curr=root; // Initialize current node as root
+    while((curr && curr->right)!=NULL) curr=curr->right; // Move right until reaching maximum node
+    return curr; // Return the maximum node
 }
 // insert node with value data
 struct Node *insert(struct Node **root, int data){
