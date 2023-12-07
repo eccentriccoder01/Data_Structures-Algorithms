@@ -56,11 +56,16 @@ struct Node *delete(struct Node **root, int data){
     return root;
 }
 void printGivenLevel(struct Node *root, int l){
+    // base case: empty tree
     if(root==NULL) return;
+
+    // base case: current level is 1
     if(l==1) printf("%d",root->key);
+
+    // recursive case: current level is greater than 1
     else{
-        printGivenLevel(root->left,l-1);
-        printGivenLevel(root->right,l-1);
+        printGivenLevel(root->left,l-1); // recursively print left subtree
+        printGivenLevel(root->right,l-1); // recursively print right subtree
     }
 }
 void levelorder(struct Node *root){
