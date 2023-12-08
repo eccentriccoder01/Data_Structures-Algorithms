@@ -69,8 +69,10 @@ void printGivenLevel(struct Node *root, int l){
     }
 }
 void levelorder(struct Node *root){
-    for(int i=1;i<=height(root);i++){
-        printGivenLevel(root,i); printf("\n");
+    int i; // Iterate over levels
+
+    for(i=1;i<=height(root);i++){
+        printGivenLevel(root,i); printf("\n"); // Print current level and newline
     }
 }
 void preorder(struct Node *root){
