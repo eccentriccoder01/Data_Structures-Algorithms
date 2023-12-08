@@ -76,10 +76,14 @@ void levelorder(struct Node *root){
     }
 }
 void preorder(struct Node *root){
+    // Base case: check if root exists
     if(root!=NULL){
-    printf("%d",root->key);
-    preorder(root->left);
-    preorder(root->right);
+        // Print the root node's key
+        printf("%d",root->key);
+        // Recursively traverse the left subtree
+        preorder(root->left);
+        // Recursively traverse the right subtree
+        preorder(root->right);
     }
 }
 void inorder(struct Node *root){
