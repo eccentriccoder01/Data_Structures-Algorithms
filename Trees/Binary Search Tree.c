@@ -94,9 +94,9 @@ void inorder(struct Node *root){
     }
 }
 void postorder(struct Node *root){
-    if(root!=NULL){
-        postorder(root->left);
-        postorder(root->right);
-        printf("%d",root->key);
+    if(root!=NULL){ // If node exists
+        postorder(root->left); // Traverse left subtree
+        postorder(root->right); // Traverse right subtree
+        printf("%d",root->key); // Print the node's key
     }
 }
