@@ -1,7 +1,9 @@
 #include<stdio.h>
 #define maxSize 50
 int rear=0,front=0;
+// Function to check if queue is full
 int isFull(int rear){
+    // Check if rear equals maximum size
     if(rear==maxSize) return 1;
     return 0;
 }
