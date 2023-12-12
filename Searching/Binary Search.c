@@ -21,15 +21,26 @@ int binaryRecursive(int a[], int l, int r, int data){
     printf("Element Doesn't Exist in The Array!"); return -1; // Element not found
 }
 int main(){
+    // Input Size of Array
     printf("Enter the Size of The Array: ");
     int n; scanf("%d",&n);
+    
+    // Declare and Input Array
     int a[n];
     printf("Enter the Elements: \n");
     for(int i=0;i<n;i++) scanf("%d",&a[i]);
+    
+    // Input Element to Search
     printf("Enter the Element to be Searched: ");
     int data; scanf("%d",&data);
+    
+    // Start Clock
     clock_t t = clock();
+    
+    // Call Binary Search Function 100,000 Times
     for(int j=0;j<100000;j++) binary(a,n,data);
+    
+    // Calculate and Print Time Taken
     t = clock() - t; 
     double time_taken = ((double)t); // in seconds 
     printf("Took %lf seconds to execute \n", time_taken); 
