@@ -1,9 +1,18 @@
 #include<stdio.h>
 #include<stdlib.h>
 struct Node{int info; struct Node *link;};
+// Creating new node
 struct Node *newNode(int data){
+    // Allocating memory for the node
     struct Node *node=(struct Node*)malloc(sizeof(struct Node));
-    node->info=data; node->link=NULL;
+
+    // Setting the node's data
+    node->info=data;
+
+    // Setting the node's link to NULL (initializing it)
+    node->link=NULL;
+
+    // Returning the newly created node
     return node;
 }
 void insertFront(struct Node **h, int data){
