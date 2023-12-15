@@ -16,8 +16,13 @@ struct Node *newNode(int data){
     return node;
 }
 void insertFront(struct Node **h, int data){
+    // Allocate memory for new node
     struct Node *node = (struct Node*)malloc(sizeof(struct Node));
+    
+    // Set new node's data and link
     node->info=data; node->link=*h;
+    
+    // Update head to point to new node
     *h = node;
 }
  void append(struct Node **h, int data){
