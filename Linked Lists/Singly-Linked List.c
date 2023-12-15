@@ -25,17 +25,23 @@ void insertFront(struct Node **h, int data){
     // Update head to point to new node
     *h = node;
 }
- void append(struct Node **h, int data){
+void append(struct Node **h, int data){
+    // Allocate memory for new node
     struct Node *node = (struct Node*)malloc(sizeof(struct Node));
+
+    // Assign data to new node and set next as NULL
     node->link=NULL; node->info=data;
+
+    // If the list is empty, assign new node as head
     if(*h==NULL){
-    *h=node; return;
+        *h=node; return;
     }
+
+    // If list is not empty, traverse to last node
     struct Node *last = *h;
     while(last->next!=NULL){
         last=last->next; last->next=node;
     }
-
 }
 struct Node* appendRecursive(struct Node **h, int data){
     if(h==NULL) return newNode(data);
