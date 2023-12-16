@@ -43,10 +43,11 @@ void append(struct Node **h, int data){
         last=last->next; last->next=node;
     }
 }
+// Appends new node recursively
 struct Node* appendRecursive(struct Node **h, int data){
-    if(h==NULL) return newNode(data);
-    h->link=appendRecursive(h->link, data);
-    return h;
+    if(h==NULL) return newNode(data); // Create new node if head is null
+    h->link=appendRecursive(h->link, data); // Recursive call for the next node
+    return h; // Return updated head
 }
 void display(struct Node *h){
     while(h->link!=NULL){
