@@ -50,8 +50,11 @@ struct Node* appendRecursive(struct Node **h, int data){
     return h; // Return updated head
 }
 void display(struct Node *h){
+    // Initialize pointer to first node
     while(h->link!=NULL){
+        // Print node value
         printf("%d",h->info);
+        // Move pointer to next node
         node=h->link;
     }
 }
