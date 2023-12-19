@@ -59,8 +59,13 @@ void display(struct Node *h){
     }
 }
 void displayRecursive(struct Node *h){
+    // Check if head is null
     if(h==NULL) return;
+
+    // Print node value
     printf("%d",h->info);
+
+    // Recursive call for next node
     displayRecursive(h->link);
 }
 static void reverse(struct Node **h){
