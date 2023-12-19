@@ -78,10 +78,16 @@ static void reverse(struct Node **h){
 }
 void reverseDisplay(struct Node *h){
     struct Node *curr=h, *temp=NULL;
+
+    // Iterate through the linked list
     while(curr!=NULL){
         struct Node *nextNode=curr->link;
-        curr->link=temp; temp=curr; curr->nextNode;
+        curr->link=temp; // Reverse the link direction
+        temp=curr;        // Set the current node as the next temp node
+        curr=nextNode;    // Move to the next node in the original list
     }
+
+    // Iterate through the reversed linked list and print the values
     while(temp!=NULL){
         printf("%d ->",curr->info);
         curr=curr->link;
