@@ -2,9 +2,14 @@
 #include<stdlib.h>
 struct Node{int key; struct Node *left, *right;};
 struct Node *root=NULL;
+// function to find height of the tree
 int height(struct Node *root){
+    // if root is NULL, return 0 as height
     if(root==NULL) return 0;
+    // find height of left subtree and right subtree
     int l=height(root->left), r=height(root->right);
+    // if left subtree height is greater, return its height + 1
+    // else return right subtree height + 1
     if(l>r) return l+1;
     return r+1;
 }
@@ -27,7 +32,7 @@ struct Node *maxNode(struct Node *root){
 // insert node with value data
 struct Node *insert(struct Node **root, int data){
     // if tree is empty
-    if((*root)==NULL) (*root)=newNode(data);
+    if((*root)==NULL) *root=newNode(data);
     // if value is less than root value
     else if(data<(*root)->key) (*root)->left=insert(&(*root)->left,data);
     // if value is greater than root value
