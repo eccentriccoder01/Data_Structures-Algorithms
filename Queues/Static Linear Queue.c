@@ -1,18 +1,28 @@
 #include<stdio.h>
-#define maxSize 50
-int rear=0,front=0;
-// Function to check if queue is full
-int isFull(int rear){
-    // Check if rear equals maximum size
-    if(rear==maxSize) return 1;
-    return 0;
+#include<stdlib.h>
+struct Queue{int front,rear,size;unsigned capacity;int *a;};
+struct Queue *newQueue(unsigned capacity){
+    struct Queue *q=(struct Queue*)malloc(sizeof(struct Queue));
+    q->front==0;q->rear==capacity-1;
+    q->size=0;q->capacity=capacity;
+    q->a=(int *)malloc(q->size*sizeof(int));
+    return q;
 }
-int isEmpty(int front,int rear){
-    if(front==rear) return 1;
-    return 0;
+int isFull(struct Queue *q){
+    return q->size==q->capacity;
 }
-void enqueue(int a[],int rear,int data){
-    if(isFull(rear)){
-        printf("Overflow!"); return;
+int isEmpty(struct Queue *q){
+    return q->size==0;
+}
+void enqueue(struct Queue *q,int data){
+    if(isFull(q)){
+        printf("Overflow"); return;
     }
+    q->a[++q->rear]=data;
+}
+int dequeue(struct Queue *q){
+    if(isEmpty(q)){
+        printf("Underflow!"); return -1;
+    }
+    q->
 }
