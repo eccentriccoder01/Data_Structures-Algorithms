@@ -9,7 +9,9 @@ struct Queue *newQueue(unsigned capacity){
     q->a=(int *)malloc(q->size*sizeof(int));    // allocate memory for queue array
     return q;
 }
+// Function to check if the queue is full
 int isFull(struct Queue *q){
+    // Check if size equals capacity
     return q->size==q->capacity;
 }
 int isEmpty(struct Queue *q){
