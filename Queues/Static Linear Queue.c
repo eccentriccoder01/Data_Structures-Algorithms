@@ -14,7 +14,9 @@ int isFull(struct Queue *q){
     // Check if size equals capacity
     return q->size==q->capacity;
 }
+// function to check if the queue is empty
 int isEmpty(struct Queue *q){
+    // if size is 0, return 1 (true)
     return q->size==0;
 }
 void enqueue(struct Queue *q,int data){
