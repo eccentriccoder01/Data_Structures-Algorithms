@@ -20,10 +20,11 @@ int isEmpty(struct Queue *q){
     return q->size==0;
 }
 void enqueue(struct Queue *q,int data){
-    if(isFull(q)){
-        printf("Overflow"); return;
+    if(isFull(q)){ // check if queue is full
+        printf("Overflow"); 
+        return; // return if overflow
     }
-    q->a[++q->rear]=data;
+    q->a[++q->rear]=data; // insert data at rear+1 and increment rear
 }
 int dequeue(struct Queue *q){
     if(isEmpty(q)){
