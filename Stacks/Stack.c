@@ -11,7 +11,10 @@ struct Stack *newStack(unsigned size){
     // Returning created stack
     return stack;
 }
+// Function to check if stack is full
 int isFull(struct Stack *stack){
+    // If top index is at the last position of stack
+    // then it indicates stack is full
     return stack->top==stack->size-1; 
 }
 int isEmpty(struct Stack *stack){
