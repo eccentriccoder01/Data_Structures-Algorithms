@@ -17,7 +17,9 @@ int isFull(struct Stack *stack){
     // then it indicates stack is full
     return stack->top==stack->size-1; 
 }
+// check if stack is empty
 int isEmpty(struct Stack *stack){
+    // return 1 if top index is -1 (empty stack)
     return stack->top==-1;
 }
 void push(struct Stack *stack,int data){
