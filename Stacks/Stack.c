@@ -22,11 +22,15 @@ int isEmpty(struct Stack *stack){
     // return 1 if top index is -1 (empty stack)
     return stack->top==-1;
 }
-void push(struct Stack *stack,int data){
-    if(isFull(stack)){
-        printf("Overflow!"); return;
+void push(struct Stack *stack, int data) {
+    // Check if stack is full before pushing
+    if (isFull(stack)) {
+        printf("Overflow!");
+        return;
     }
-    stack->a[++(stack->top)]=data;
+
+    // Increment top and assign data to new top element
+    stack->a[++(stack->top)] = data;
 }
 int pop(struct Stack *stack){
     if(isEmpty(stack)){
