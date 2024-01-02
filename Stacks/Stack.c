@@ -40,9 +40,13 @@ int pop(struct Stack *stack){
     // return and decrement the top element
     return stack->a[stack->top--];
 }
+// Peek operation
 int peek(struct Stack *stack){
-    if(isEmpty(stack)){
-        printf("Underflow!"); return -1;
+    // Check if stack is empty
+    if(isEmpty(stack)) {
+        printf("Underflow!"); 
+        return -1; // Return -1 if underflow occurs
     }
+    // Return top element without removing it
     return stack->a[stack->top];
 }
