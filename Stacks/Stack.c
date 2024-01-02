@@ -33,9 +33,11 @@ void push(struct Stack *stack, int data) {
     stack->a[++(stack->top)] = data;
 }
 int pop(struct Stack *stack){
+    // check if stack is empty
     if(isEmpty(stack)){
         printf("Underflow!"); return -1;
     }
+    // return and decrement the top element
     return stack->a[stack->top--];
 }
 int peek(struct Stack *stack){
