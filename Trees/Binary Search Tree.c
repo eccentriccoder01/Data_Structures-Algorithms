@@ -13,10 +13,14 @@ int height(struct Node *root){
     if(l>r) return l+1;
     return r+1;
 }
-struct Node *newNode(int data){
-    struct Node *node=(struct Node*)malloc(sizeof(struct Node));
-    node->key=data; node->left=NULL; node->right=NULL;
-    return node;
+// Allocate memory for new node
+struct Node *newNode(int data) {
+   // Allocate memory and store data
+   struct Node *node = (struct Node*)malloc(sizeof( Node));
+   node->key = data;  // Set key value
+   node->left = NULL;  // Initialize left child as null
+   node->right = NULL;  // Initialize right child as null
+   return node;  // Return the created node
 }
 struct Node *minNode(struct Node *root){
     struct Node *curr=root;
