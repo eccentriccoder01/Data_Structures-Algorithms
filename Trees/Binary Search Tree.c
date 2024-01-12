@@ -16,7 +16,7 @@ int height(struct Node *root){
 // Allocate memory for new node
 struct Node *newNode(int data) {
    // Allocate memory and store data
-   struct Node *node = (struct Node*)malloc(sizeof( Node));
+   struct Node *node = (struct Node*)malloc(sizeof(struct Node));
    node->key = data;  // Set key value
    node->left = NULL;  // Initialize left child as null
    node->right = NULL;  // Initialize right child as null
