@@ -19,8 +19,35 @@ int bal(struct Node *root){
     return height(root->left) - height(root->right);
 }
 struct Node *RRot(struct Node *root){
-    struct Node *x=root->left, *T1=root->left->right;
-    x->right=root; root->left=T2;
+    struct Node *x=root->left, *T=root->left->right;
+    x->right=root; root->left=T;
     root->height=max(height(root->left),height(root->right))+1;
     x->height=max(height(x->left),height(x->right))+1;
+    return x;
+}
+struct Node *LRot(struct Node *root){
+    struct Node *x=root->right, *T=root->right->left;
+    x->left=root; root->right=T;
+    root->height=max(height(root->left),height(root->right))+1;
+    x->height=max(height(x->left),height(x->right))+1;
+    return x;
+}
+struct Node *insert(struct Node *root, int data){
+    if(root==NULL){
+        root=newNode(data); return;
+    }
+    if(data<root->key) root->left=insert(root->left,data);
+    else if(data>root->key) root->right=insert(root->right,data);
+    else return root;
+    if(b>1 && data<root->left->key) return RRot(root);
+    if(b<-1 && data>root->right->key) return LRot(root);
+    if(b>1 && data>root->left->key){
+        root->left=LRot(root->left);
+        return RRot(root);
+    }
+    if(b<-1 && data<root->right->key){
+        root->right=RRot(root->right);
+        return LRot(root);
+    }
+    return root;
 }
