@@ -18,11 +18,20 @@ int bal(struct Node *root){
     if(root==NULL) return 0;
     return height(root->left) - height(root->right);
 }
-struct Node *RRot(struct Node *root){
-    struct Node *x=root->left, *T=root->left->right;
-    x->right=root; root->left=T;
-    root->height=max(height(root->left),height(root->right))+1;
-    x->height=max(height(x->left),height(x->right))+1;
+// Function to perform right rotation of the tree
+struct Node *RRot(struct Node *root) {
+    // Save the right child of the left child of root
+    struct Node *x = root->left, *T = root->left->right;
+    
+    // Perform rotation
+    x->right = root;    // Make x the new root
+    root->left = T;     // Make T the left child of root
+    
+    // Update heights
+    root->height = max(height(root->left), height(root->right)) + 1;
+    x->height = max(height(x->left), height(x->right)) + 1;
+    
+    // Return the new root
     return x;
 }
 struct Node *LRot(struct Node *root){
