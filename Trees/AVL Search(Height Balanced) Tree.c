@@ -34,11 +34,27 @@ struct Node *RRot(struct Node *root) {
     // Return the new root
     return x;
 }
-struct Node *LRot(struct Node *root){
-    struct Node *x=root->right, *T=root->right->left;
-    x->left=root; root->right=T;
-    root->height=max(height(root->left),height(root->right))+1;
-    x->height=max(height(x->left),height(x->right))+1;
+// Function to perform left rotation on the given root node
+struct Node *LRot(struct Node *root) {
+    // Store the right child of the root node
+    struct Node *x = root->right;
+    
+    // Store the left child of the right child of the root node
+    struct Node *T = root->right->left;
+    
+    // Make the right child of the root node as the new root
+    x->left = root;
+    
+    // Make the left child of the right child of the root node as the right child of the root node
+    root->right = T;
+    
+    // Update the height of the root node
+    root->height = max(height(root->left), height(root->right)) + 1;
+    
+    // Update the height of the new root node
+    x->height = max(height(x->left), height(x->right)) + 1;
+    
+    // Return the new root node
     return x;
 }
 struct Node *insert(struct Node *root, int data){
