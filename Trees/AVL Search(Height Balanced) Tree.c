@@ -14,9 +14,10 @@ int height(struct Node *root){
     if(root==NULL) return 0;
     return root->height;
 }
-int bal(struct Node *root){
-    if(root==NULL) return 0;
-    return height(root->left) - height(root->right);
+int bal(struct Node *root) {
+   if(root == NULL) // If tree is empty, balance factor is 0
+       return 0;
+   return height(root->left) - height(root->right); // Subtract right subtree height from left subtree height
 }
 // Function to perform right rotation of the tree
 struct Node *RRot(struct Node *root) {
