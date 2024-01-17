@@ -10,9 +10,11 @@ struct Node *newNode(int data){
 int max(int a, int b){
     return a>b ? a : b;
 }
-int height(struct Node *root){
-    if(root==NULL) return 0;
-    return root->height;
+// Function to get height of tree
+int height(struct Node *root)  // Input: node of the tree
+{  				 // Output: height of the tree
+   if(root==NULL) return 0;  // Return 0 if tree is empty
+   return root->height;  // Return height if node is not NULL
 }
 int bal(struct Node *root) {
    if(root == NULL) // If tree is empty, balance factor is 0
