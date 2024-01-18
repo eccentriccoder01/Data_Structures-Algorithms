@@ -109,3 +109,18 @@ void postorder(struct Node *root){
         printf("%d",root->key); // Print the node's key
     }
 }
+struct Node *constructTreeUtil(int post[],int **pi,int key,int min,int max,int size){
+    if(*pi<0) return NULL;
+    struct Node *root=NULL;
+    if(key>min && key<max){
+        root=newNode(key); (*pi)-=1;
+        if(*pi>=0){
+            root->right=constructTreeUtil(post,pi,post[*pi],key,max,size);
+            root->left=constructTreeUtil(post,pi,post[*pi],min,key,size);
+        }
+    } return root;
+}
+struct Node *constructTree(int post[],int size){
+    int pi=size-1;
+    return constructTreeUtil(post,&pi,post[&pi],INT_MIN,INT_MAX,size);
+}
