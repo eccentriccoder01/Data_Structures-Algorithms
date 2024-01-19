@@ -10,9 +10,20 @@ struct Node *newNode(int data) {
    node->r = 0;
    return node;  // Return the created node
 }
-struct Node *minNode(struct Node *root){
-    struct Node *curr=root;
-    while((curr && curr->left)!=NULL) curr=curr->left;
+// Function to find the minimum node in a binary search tree
+struct Node *minNode(struct Node *root)
+{
+    // Initialize current node to root
+    struct Node *curr = root;
+
+    // Loop until current node is null or has no left child
+    while ((curr && curr->left) != NULL)
+    {
+        // Move to the left child
+        curr = curr->left;
+    }
+
+    // Return the minimum node
     return curr;
 }
 struct Node *insert(struct Node **root,int data){
