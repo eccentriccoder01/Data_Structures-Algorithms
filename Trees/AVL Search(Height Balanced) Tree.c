@@ -22,16 +22,16 @@ int bal(struct Node *root) {
    return height(root->left) - height(root->right); // Subtract right subtree height from left subtree height
 }
 // Function to perform right rotation of the tree
-struct Node *RRot(struct Node *root) {
+struct Node *RRot(struct Node **root) {
     // Save the right child of the left child of root
-    struct Node *x = root->left, *T = root->left->right;
+    struct Node *x = (*root)->left, *T = (*root)->left->right;
     
     // Perform rotation
-    x->right = root;    // Make x the new root
-    root->left = T;     // Make T the left child of root
+    x->right = *root;    // Make x the new root
+    (*root)->left = T;     // Make T the left child of root
     
     // Update heights
-    root->height = max(height(root->left), height(root->right)) + 1;
+    (*root)->height = max(height((*root)->left), height((*root)->right)) + 1;
     x->height = max(height(x->left), height(x->right)) + 1;
     
     // Return the new root
@@ -62,11 +62,12 @@ struct Node *LRot(struct Node *root) {
 }
 struct Node *insert(struct Node *root, int data){
     if(root==NULL){
-        root=newNode(data); return;
+        root=newNode(data); return root;
     }
     if(data<root->key) root->left=insert(root->left,data);
     else if(data>root->key) root->right=insert(root->right,data);
     else return root;
+    int b=bal(root);
     if(b>1 && data<root->left->key) return RRot(root);
     if(b<-1 && data>root->right->key) return LRot(root);
     if(b>1 && data>root->left->key){
