@@ -60,23 +60,36 @@ struct Node *LRot(struct Node *root) {
     // Return the new root node
     return x;
 }
-struct Node *insert(struct Node *root, int data){
-    if(root==NULL){
+struct Node *insert(struct Node *root, int data) {
+    // create new node if root is null
+    if(root==NULL) {
         root=newNode(data); return root;
     }
+
+    // insert data in the appropriate side of the tree
     if(data<root->key) root->left=insert(root->left,data);
     else if(data>root->key) root->right=insert(root->right,data);
     else return root;
+
+    // get balance factor of the tree
     int b=bal(root);
+
+    // right rotation cases
     if(b>1 && data<root->left->key) return RRot(root);
-    if(b<-1 && data>root->right->key) return LRot(root);
-    if(b>1 && data>root->left->key){
+    if(b>1 && data>root->left->key) {
+        // left-right rotation
         root->left=LRot(root->left);
         return RRot(root);
     }
-    if(b<-1 && data<root->right->key){
+
+    // left rotation cases
+    if(b<-1 && data>root->right->key) return LRot(root);
+    if(b<-1 && data<root->right->key) {
+        // right-left rotation
         root->right=RRot(root->right);
         return LRot(root);
     }
+
+    // return the unchanged root if tree is balanced
     return root;
 }
