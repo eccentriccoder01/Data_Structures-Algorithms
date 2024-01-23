@@ -1,10 +1,22 @@
 #include<stdio.h>
 #include<stdlib.h>
 struct Node{int key,height; struct Node *left,*right}
-struct Node *newNode(int data){
-    struct Node *node=(struct Node*)malloc(sizeof(struct Node));
-    node->height=1; node->key=data;
-    node->left=NULL; node->right=NULL;
+// Function to create a new node with given data
+struct Node *newNode(int data) {
+    // Allocate memory for new node
+    struct Node *node = (struct Node*)malloc(sizeof(struct Node));
+    
+    // Assign data to the node
+    node->key = data;
+    
+    // Initialize height of the node as 1
+    node->height = 1;
+    
+    // Initialize left and right children as NULL
+    node->left = NULL;
+    node->right = NULL;
+    
+    // Return the newly created node
     return node;
 }
 int max(int a, int b){
