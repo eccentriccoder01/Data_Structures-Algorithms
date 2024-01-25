@@ -19,8 +19,9 @@ struct Node *newNode(int data) {
     // Return the newly created node
     return node;
 }
+// Function to find maximum of two numbers
 int max(int a, int b){
-    return a>b ? a : b;
+    return a>b ? a : b; // Return a if a is greater than b, Else return b
 }
 // Function to get height of tree
 int height(struct Node *root)  // Input: node of the tree
