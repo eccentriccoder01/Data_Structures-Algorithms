@@ -26,16 +26,24 @@ struct Node *minNode(struct Node *root)
     // Return the minimum node
     return curr;
 }
-struct Node *insert(struct Node **root,int data){
-    if(*root==NULL) *root=newNode(data);
-    if(data<(*root)->key){
-        struct Node *lc=insert((*root)->left,data);
-        (*root)->left=lc; lc->right=(*root);
-        lc->r=1;
+struct Node *insert(struct Node **root, int data) {
+    // create new node if root is null
+    if (*root == NULL) *root = newNode(data);
+
+    // go to left subtree if data is less than root's key
+    if (data < (*root)->key) {
+        struct Node *lc = insert((*root)->left, data);
+        (*root)->left = lc;  // assign left child
+        lc->right = (*root); // make new node as right child of left child
+        lc->r = 1;           // set right child count of new node
     } else {
-        struct Node *rc=insert((*root)->right,data);
-        (*root)->right=rc; rc->right=(*root)->right;
-        rc->r=(*root)->r; (*root)->r=0;
-        return (*root);
+        // go to right subtree if data is greater than or equal to root's key
+        struct Node *rc = insert((*root)->right, data);
+        (*root)->right = rc; // assign right child
+        rc->right = (*root)->right; // make root's right child as right child of new node
+        rc->r = (*root)->r; (*root)->r = 0; // update right child count
     }
+
+    // return root node
+    return (*root);
 }
