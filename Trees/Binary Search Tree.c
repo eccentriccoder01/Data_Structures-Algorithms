@@ -109,16 +109,28 @@ void postorder(struct Node *root){
         printf("%d",root->key); // Print the node's key
     }
 }
-struct Node *constructTreeUtil(int post[],int **pi,int key,int min,int max,int size){
-    if(*pi<0) return NULL;
+// Function to construct a tree from a postorder traversal
+struct Node *constructTreeUtil(int[],int *pi,int key,int min,int max, size)
+{
+    // Return NULL if the index is out of bounds
+    if(*pi<0) return;
+
+    // Initialize the root node and decrement the index
     struct Node *root=NULL;
-    if(key>min && key<max){
+    if(key>min && key<max)
+    {
         root=newNode(key); (*pi)-=1;
-        if(*pi>=0){
+
+        // Recursively construct the right and left subtrees
+        if(*pi>=0)
+        {
             root->right=constructTreeUtil(post,pi,post[*pi],key,max,size);
             root->left=constructTreeUtil(post,pi,post[*pi],min,key,size);
         }
-    } return root;
+    }
+
+    // Return the root node
+    return root;
 }
 struct Node *constructTree(int post[],int size){
     int pi=size-1;
