@@ -68,13 +68,23 @@ void displayRecursive(struct Node *h){
     // Recursive call for next node
     displayRecursive(h->link);
 }
-static void reverse(struct Node **h){
-    struct Node *prev=NULL, *curr=*h, *next=NULL;
-    while(curr!=NULL){
-        next=curr->link; curr->link=prev;
-        prev=curr; curr->next; 
+static void reverse(struct Node **h) {
+    // Initialize previous, current, and next pointers
+    struct Node *prev = NULL, *curr = *h, *next = NULL;
+
+    // Iterate through the linked list
+    while (curr != NULL) {
+        // Save the next node in the list
+        next = curr->link;
+        // Reverse the link direction
+        curr->link = prev;
+        // Move to the next iteration
+        prev = curr;
+        curr = next;
     }
-    *h=prev;
+
+    // Update the head pointer to the new first node
+    *h = prev;
 }
 void reverseDisplay(struct Node *h){
     struct Node *curr=h, *temp=NULL;
