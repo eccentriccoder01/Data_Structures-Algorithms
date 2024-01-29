@@ -132,7 +132,10 @@ struct Node *constructTreeUtil(int[],int *pi,int key,int min,int max, size)
     // Return the root node
     return root;
 }
-struct Node *constructTree(int post[],int size){
-    int pi=size-1;
-    return constructTreeUtil(post,&pi,post[&pi],INT_MIN,INT_MAX,size);
+struct Node *constructTree(int post[], int size) {
+    // Initialize the postorder index
+    int pi = size - 1;
+
+    // Call the helper function with the postorder array and its size
+    return constructTreeUtil(post, &pi, post[pi], INT_MIN, INT_MAX, size);
 }
