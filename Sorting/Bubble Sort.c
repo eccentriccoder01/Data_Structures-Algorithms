@@ -1,6 +1,5 @@
 #include<stdio.h>
 #include<stdlib.h>
-void swap(int *x, int *y){
 // Function to swap two integers
 void swap(int *, int *y) {    // Temporary variable to hold x's value
    int t = *x;
