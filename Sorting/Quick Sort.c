@@ -32,8 +32,14 @@ int partition(int a[], low, int high) {
     // return index of pivot element
     return i + 1;
 }
-void quickSort(int a[],int low,int high){
-    int p=part(a,low,high);
-    quickSort(a,low,p-1);
-    quickSort(a,p+1,high);
+// recursive quicksort function
+void quickSort(int a[], int low, int high) {
+    // partition the array and get pivot index
+    int p = part(a, low, high);
+
+    // recursively sort elements on left side of pivot
+    quickSort(a, low, p - 1);
+
+    // recursively sort elements on right side of pivot
+    quickSort(a, p + 1, high);
 }
