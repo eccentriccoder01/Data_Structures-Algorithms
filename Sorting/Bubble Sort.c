@@ -1,16 +1,11 @@
 #include<stdio.h>
 #include<stdlib.h>
 // Function to swap two integers
-void swap(int *, int *y) {    // Temporary variable to hold x's value
-   int t = *x;
-   
-   // Set x to y's value
-*x = *y;
-
-   // Set y to temporary variable's value
-   *y = t;
+void swap(int *, int *y) {    
+    int t = *x; // Temporary variable to hold x's value
+    *x = *y; // Set x to y's value
+    *y = t; // Set y to temporary variable's value
 }
-
 void bubble(int a[],int n){
     // Start bubble sort algorithm
     for(int i=0;i<n-1;i++)
