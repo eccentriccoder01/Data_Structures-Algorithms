@@ -1,14 +1,10 @@
 #include<stdio.h>
 #include<stdlib.h>
 // Function to swap two integers
-void swap(int *, int *y) {    // Temporary variable to hold x's value
-   int t = *x;
-   
-   // Set x to y's value
-*x = *y;
-
-   // Set y to temporary variable's value
-   *y = t;
+void swap(int *, int *y) {    
+    int t = *x; // Temporary variable to hold x's value
+    *x = *y; // Set x to y's value
+    *y = t; // Set y to temporary variable's value
 }
 // Function to sort an array using selection sort
 void selection(int a[], int n) {
