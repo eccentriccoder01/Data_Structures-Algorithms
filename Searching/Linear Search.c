@@ -14,10 +14,17 @@ int linear(int a[], n, int data) {
    printf("Element Doesn't Exist in The Array!");
    return -1;
 }
-int linearRecursive(int a[], int n, int data){
-    if(n==0){
-        printf("Element Doesn't Exist in The Array!"); return -1;
-    }
-    if(a[n]==data) return n;
-    return linearRecursive(a, n-1, data);
+// Function: linearRecursive
+// Input: int array a[], size n, target data
+// Output: of data in a[], or -1 if not found
+int linearRecursive( a[], int n, int data) {
+   // Base case: if n is 0, return -1 if data not found
+   if(n==0) {
+       printf("Element Doesn't Exist in The Array!");
+       return -1;
+   }
+   // If data is found, return its index
+   if(a[n]==data) return n;
+   // Recursive case: search in the rest of the array
+   return linearRecursive(a, n-1, data); // recursive call
 }
