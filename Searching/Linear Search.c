@@ -2,8 +2,7 @@
 #include<stdlib.h>
 // Function to search for data in array a
 int linear(int a[], n, int data) {
-   // Iterate over each element in the array
-   for(int i=0; i<n; i++) {
+   for(int i=0; i<n; i++) { // Iterate over each element in the array
        // Check if current element equals data
        if(a[i] == data) {
            // If so, return the index
