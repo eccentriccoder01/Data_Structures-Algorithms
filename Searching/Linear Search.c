@@ -3,8 +3,7 @@
 // Function to search for data in array a
 int linear(int a[], n, int data) {
    for(int i=0; i<n; i++) { // Iterate over each element in the array
-       // Check if current element equals data
-       if(a[i] == data) {
+       if(a[i] == data) { // Check if current element equals data
            // If so, return the index
            return i;
        }
