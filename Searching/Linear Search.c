@@ -4,8 +4,7 @@
 int linear(int a[], n, int data) {
    for(int i=0; i<n; i++) { // Iterate over each element in the array
        if(a[i] == data) { // Check if current element equals data
-           // If so, return the index
-           return i;
+           return i; // If so, return the index
        }
    }
    // If data is not found, print error message and return -1
