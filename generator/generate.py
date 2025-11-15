@@ -63,22 +63,22 @@ Topic rules:
 
 For each topic, return the following JSON structure:
 
-{
+{{
   "title": "",
   "intro": "",
   "use_cases": "",
   "ascii_diagram": "",
   "approaches": [
-    {
+    {{
       "name": "",
       "explanation": "",
       "cpp": "",
       "java": "",
       "python": ""
-    }
+    }}
   ],
   "complexity": ""
-}
+}}
 
 IMPORTANT:
 - Output only a JSON array of {NUM_ARTICLES_PER_DAY} objects.
