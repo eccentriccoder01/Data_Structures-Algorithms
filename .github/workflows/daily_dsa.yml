@@ -1,0 +1,47 @@
+name: Daily DSA Auto Commit
+
+on:
+  schedule:
+    # Runs once a day. This is in UTC. 18:30 UTC ≈ 00:00 IST next day.
+    - cron: "30 18 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  generate-and-commit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install google-genai
+
+      - name: Generate DSA articles
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python generator/generate.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "Sagnik Chakraborty"
+          git config user.email "sagnikgraviton847@gmail.com"
+
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git add .
+          git commit -m "Daily auto-update: DSA articles"
+          git push

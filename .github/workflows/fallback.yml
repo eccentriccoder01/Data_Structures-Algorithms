@@ -1,0 +1,41 @@
+name: Daily Heartbeat (Guaranteed Daily Commit)
+
+on:
+  schedule:
+    # Runs daily at 00:10 IST (~18:40 UTC)
+    - cron: "40 18 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Check if a commit was already made today
+        id: check
+        run: |
+          LAST_COMMIT_DATE=$(git log -1 --format=%cs)
+          TODAY=$(date -u +"%Y-%m-%d")
+
+          if [ "$LAST_COMMIT_DATE" = "$TODAY" ]; then
+            echo "already_committed=true" >> $GITHUB_OUTPUT
+          else
+            echo "already_committed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create heartbeat commit (ONLY if needed)
+        if: steps.check.outputs.already_committed == 'false'
+        run: |
+          echo "Heartbeat at $(date -u)" > generator/heartbeat.txt
+
+          git config user.name "Sagnik Chakraborty"
+          git config user.email "sagnikgraviton847@gmail.com"
+
+          git add generator/heartbeat.txt
+          git commit -m "Daily heartbeat: maintain activity streak"
+          git push
