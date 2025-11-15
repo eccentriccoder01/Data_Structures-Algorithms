@@ -1,4 +1,15 @@
 {
-  "day": 1,
-  "used_slugs": []
+  "day": 2,
+  "used_slugs": [
+    "binary_search_algorithm",
+    "merge_sort_algorithm",
+    "quick_sort_algorithm",
+    "dijkstra_s_algorithm",
+    "bellman_ford_algorithm",
+    "kruskal_s_algorithm_for_minimum_spanning_tree",
+    "prim_s_algorithm_for_minimum_spanning_tree",
+    "knuth_morris_pratt_kmp_algorithm",
+    "sieve_of_eratosthenes",
+    "fenwick_tree_binary_indexed_tree"
+  ]
 }
