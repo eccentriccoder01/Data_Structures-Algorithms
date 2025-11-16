@@ -1,5 +1,5 @@
 {
-  "day": 2,
+  "day": 3,
   "used_slugs": [
     "binary_search_algorithm",
     "merge_sort_algorithm",
@@ -10,6 +10,16 @@
     "prim_s_algorithm_for_minimum_spanning_tree",
     "knuth_morris_pratt_kmp_algorithm",
     "sieve_of_eratosthenes",
-    "fenwick_tree_binary_indexed_tree"
+    "fenwick_tree_binary_indexed_tree",
+    "topological_sort",
+    "floyd_warshall_algorithm",
+    "segment_tree",
+    "trie_prefix_tree",
+    "longest_common_subsequence_lcs",
+    "disjoint_set_union_union_find",
+    "z_algorithm_for_pattern_searching",
+    "heap_sort",
+    "kadane_s_algorithm",
+    "mo_s_algorithm"
   ]
 }
