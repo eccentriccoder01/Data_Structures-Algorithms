@@ -137,41 +137,58 @@ def fix_json_string(text: str) -> str:
 
     return text
 
-def call_gemini(prompt: str):
+import time
+import random
+import json
+import httpx
+
+def call_gemini(prompt: str, max_retries=5):
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
         raise RuntimeError("GEMINI_API_KEY environment variable is not set")
 
     client = genai.Client(api_key=api_key)
 
-    response = client.models.generate_content(
-        model=MODEL_NAME,
-        contents=prompt,
-    )
+    for attempt in range(1, max_retries + 1):
+        try:
+            response = client.models.generate_content(
+                model=MODEL_NAME,
+                contents=prompt,
+            )
 
-    text = response.text.strip()
+            text = response.text.strip()
 
-    # Clean accidental fenced code blocks
-    if text.startswith("```"):
-        text = re.sub(r"^```[a-zA-Z]*", "", text).strip()
-        if text.endswith("```"):
-            text = text[:-3].strip()
+            # Remove code fences if any
+            if text.startswith("```"):
+                text = re.sub(r"^```[a-zA-Z]*", "", text).strip()
+                if text.endswith("```"):
+                    text = text[:-3].strip()
 
-    # FIX JSON HERE
-    text = fix_json_string(text)
+            data = json.loads(text)
 
-    # Load JSON
-    data = json.loads(text)
+            if not isinstance(data, list):
+                raise ValueError("Gemini did not return a JSON array")
 
-    if not isinstance(data, list):
-        raise ValueError("Gemini response is not a JSON array")
+            if len(data) != NUM_ARTICLES_PER_DAY:
+                raise ValueError(f"Expected {NUM_ARTICLES_PER_DAY} items")
 
-    if len(data) != NUM_ARTICLES_PER_DAY:
-        raise ValueError(
-            f"Expected {NUM_ARTICLES_PER_DAY} articles, got {len(data)}"
-        )
+            return data
 
-    return data
+        except (httpx.RemoteProtocolError,
+                httpx.ReadTimeout,
+                httpx.NetworkError,
+                json.JSONDecodeError,
+                ValueError) as e:
+
+            print(f"[Retry {attempt}/{max_retries}] Error: {e}")
+
+            if attempt == max_retries:
+                raise
+
+            # Exponential backoff with jitter
+            time.sleep((2 ** attempt) + random.random())
+
+    raise RuntimeError("Gemini failed after max retries")
 
 
 # -------------------------------------------------------------
