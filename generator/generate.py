@@ -117,25 +117,25 @@ OUTPUT FORMAT:
 # Gemini API Call
 # -------------------------------------------------------------
 
-# def fix_json_string(text: str) -> str:
-#     """
-#     Attempts to fix common JSON formatting issues from LLM output:
-#     - Unescaped backslashes in code
-#     - Stray control characters
-#     - Accidental newlines inside string literals
-#     """
+def fix_json_string(text: str) -> str:
+    """
+    Attempts to fix common JSON formatting issues from LLM output:
+    - Unescaped backslashes in code
+    - Stray control characters
+    - Accidental newlines inside string literals
+    """
 
-#     # Remove BOM or weird unicode
-#     text = text.encode("utf-8", "ignore").decode("utf-8")
+    # Remove BOM or weird unicode
+    text = text.encode("utf-8", "ignore").decode("utf-8")
 
-#     # Escape single backslashes: \ → \\ 
-#     # BUT do NOT double-escape already escaped ones.
-#     text = re.sub(r'(?<!\\)\\(?![\\nrt"\'/])', r'\\\\', text)
+    # Escape single backslashes: \ → \\ 
+    # BUT do NOT double-escape already escaped ones.
+    text = re.sub(r'(?<!\\)\\(?![\\nrt"\'/])', r'\\\\', text)
 
-#     # Remove trailing commas: },] → } ] 
-#     text = re.sub(r',(\s*[}\]])', r'\1', text)
+    # Remove trailing commas: },] → } ] 
+    text = re.sub(r',(\s*[}\]])', r'\1', text)
 
-#     return text
+    return text
 
 def call_gemini(prompt: str):
     api_key = os.environ.get("GEMINI_API_KEY")
