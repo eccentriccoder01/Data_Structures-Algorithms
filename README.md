@@ -29,3 +29,16 @@ This repository is automatically updated daily with new DSA articles generated u
 - [Topological Sort](daily/day_002/topological_sort.md)
 - [Trie Prefix Tree](daily/day_002/trie_prefix_tree.md)
 - [Z Algorithm For Pattern Searching](daily/day_002/z_algorithm_for_pattern_searching.md)
+
+### Day 003
+
+- [0 1 Knapsack Problem](daily/day_003/0_1_knapsack_problem.md)
+- [A Search Algorithm](daily/day_003/a_search_algorithm.md)
+- [Avl Tree Self Balancing Binary Search Tree](daily/day_003/avl_tree_self_balancing_binary_search_tree.md)
+- [Breadth First Search Bfs For Graph Traversal](daily/day_003/breadth_first_search_bfs_for_graph_traversal.md)
+- [Depth First Search Dfs For Graph Traversal](daily/day_003/depth_first_search_dfs_for_graph_traversal.md)
+- [Extended Euclidean Algorithm](daily/day_003/extended_euclidean_algorithm.md)
+- [Lowest Common Ancestor Lca Using Binary Lifting](daily/day_003/lowest_common_ancestor_lca_using_binary_lifting.md)
+- [Manacher S Algorithm For Longest Palindromic Substring](daily/day_003/manacher_s_algorithm_for_longest_palindromic_substring.md)
+- [Rabin Karp Algorithm For String Matching](daily/day_003/rabin_karp_algorithm_for_string_matching.md)
+- [Tarjan S Algorithm For Strongly Connected Components Scc](daily/day_003/tarjan_s_algorithm_for_strongly_connected_components_scc.md)

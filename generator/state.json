@@ -1,5 +1,5 @@
 {
-  "day": 3,
+  "day": 4,
   "used_slugs": [
     "binary_search_algorithm",
     "merge_sort_algorithm",
@@ -20,6 +20,16 @@
     "z_algorithm_for_pattern_searching",
     "heap_sort",
     "kadane_s_algorithm",
-    "mo_s_algorithm"
+    "mo_s_algorithm",
+    "depth_first_search_dfs_for_graph_traversal",
+    "breadth_first_search_bfs_for_graph_traversal",
+    "lowest_common_ancestor_lca_using_binary_lifting",
+    "0_1_knapsack_problem",
+    "rabin_karp_algorithm_for_string_matching",
+    "manacher_s_algorithm_for_longest_palindromic_substring",
+    "tarjan_s_algorithm_for_strongly_connected_components_scc",
+    "avl_tree_self_balancing_binary_search_tree",
+    "a_search_algorithm",
+    "extended_euclidean_algorithm"
   ]
 }
