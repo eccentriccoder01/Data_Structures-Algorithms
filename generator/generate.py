@@ -37,6 +37,15 @@ def slugify(title: str) -> str:
     return s or "topic"
 
 
+def b64_to_str(value: str) -> str:
+    if not isinstance(value, str) or not value:
+        return ""
+    try:
+        return base64.b64decode(value).decode("utf-8", errors="replace")
+    except Exception:
+        # In case Gemini messes up base64, fall back to raw
+        return value
+
 def build_prompt(used_slugs):
     return f"""
 You are generating {NUM_ARTICLES_PER_DAY} medium-length, strictly professional articles on
@@ -61,28 +70,46 @@ Topic rules:
   - A clear explanation.
   - C++, Java, and Python code.
 
+IMPORTANT ENCODING RULE:
+- ALL text fields in the JSON MUST be base64-encoded UTF-8 strings.
+- This includes titles, explanations, diagrams, code, and complexity sections.
+- Use standard base64 with no newlines.
+
 For each topic, return the following JSON structure:
 
 {{
-  "title": "",
-  "intro": "",
-  "use_cases": "",
-  "ascii_diagram": "",
+  "title_b64": "<base64(title)>",
+  "intro_b64": "<base64(intro)>",
+  "use_cases_b64": "<base64(use_cases)>",
+  "ascii_diagram_b64": "<base64(ascii_diagram)>",
   "approaches": [
     {{
-      "name": "",
-      "explanation": "",
-      "cpp": "",
-      "java": "",
-      "python": ""
+      "name_b64": "<base64(approach_name)>",
+      "explanation_b64": "<base64(approach_explanation)>",
+      "cpp_b64": "<base64(cpp_code)>",
+      "java_b64": "<base64(java_code)>",
+      "python_b64": "<base64(python_code)>"
     }}
   ],
-  "complexity": ""
+  "complexity_b64": "<base64(complexity_discussion)>"
 }}
 
-IMPORTANT:
-- Output only a JSON array of {NUM_ARTICLES_PER_DAY} objects.
-- No markdown, no backticks, no explanation.
+Details for each field:
+- title_b64: short, precise name of the algorithm or data structure.
+- intro_b64: 1–2 paragraphs explaining what the topic is.
+- use_cases_b64: real-world or interview-style scenarios where this is used.
+- ascii_diagram_b64: an ASCII representation of the structure or process when applicable;
+  if not applicable, use a minimal schematic or short note.
+- approaches: an array of one or more approaches. Each MUST have:
+  - name_b64: for example "Brute Force", "Two-Pointer Optimized", "Dynamic Programming (Bottom-Up)".
+  - explanation_b64: 1–3 paragraphs explaining how that approach works and its idea.
+  - cpp_b64 / java_b64 / python_b64: clean, compilable code for that approach.
+- complexity_b64: summary of time and space complexity for the main approaches.
+
+OUTPUT FORMAT:
+- Respond with a single JSON array of exactly {NUM_ARTICLES_PER_DAY} such objects.
+- The JSON must be valid and directly parseable by json.loads in Python.
+- Do NOT include any markdown, code fences, comments, or extra text.
     """.strip()
 
 
@@ -90,25 +117,25 @@ IMPORTANT:
 # Gemini API Call
 # -------------------------------------------------------------
 
-def fix_json_string(text: str) -> str:
-    """
-    Attempts to fix common JSON formatting issues from LLM output:
-    - Unescaped backslashes in code
-    - Stray control characters
-    - Accidental newlines inside string literals
-    """
+# def fix_json_string(text: str) -> str:
+#     """
+#     Attempts to fix common JSON formatting issues from LLM output:
+#     - Unescaped backslashes in code
+#     - Stray control characters
+#     - Accidental newlines inside string literals
+#     """
 
-    # Remove BOM or weird unicode
-    text = text.encode("utf-8", "ignore").decode("utf-8")
+#     # Remove BOM or weird unicode
+#     text = text.encode("utf-8", "ignore").decode("utf-8")
 
-    # Escape single backslashes: \ → \\ 
-    # BUT do NOT double-escape already escaped ones.
-    text = re.sub(r'(?<!\\)\\(?![\\nrt"\'/])', r'\\\\', text)
+#     # Escape single backslashes: \ → \\ 
+#     # BUT do NOT double-escape already escaped ones.
+#     text = re.sub(r'(?<!\\)\\(?![\\nrt"\'/])', r'\\\\', text)
 
-    # Remove trailing commas: },] → } ] 
-    text = re.sub(r',(\s*[}\]])', r'\1', text)
+#     # Remove trailing commas: },] → } ] 
+#     text = re.sub(r',(\s*[}\]])', r'\1', text)
 
-    return text
+#     return text
 
 def call_gemini(prompt: str):
     api_key = os.environ.get("GEMINI_API_KEY")
@@ -148,15 +175,15 @@ def call_gemini(prompt: str):
 
 
 # -------------------------------------------------------------
-# Markdown Renderer
+# Markdown Renderer (base64 → Markdown with collapsible code)
 # -------------------------------------------------------------
 def render_markdown(article: dict) -> str:
-    title = article["title"].strip()
-    intro = article["intro"].strip()
-    use_cases = article["use_cases"].strip()
-    ascii_diagram = article["ascii_diagram"].rstrip()
-    approaches = article["approaches"]
-    complexity = article["complexity"].strip()
+    title = b64_to_str(article.get("title_b64", "")).strip()
+    intro = b64_to_str(article.get("intro_b64", "")).strip()
+    use_cases = b64_to_str(article.get("use_cases_b64", "")).strip()
+    ascii_diagram = b64_to_str(article.get("ascii_diagram_b64", "")).rstrip()
+    approaches = article.get("approaches", [])
+    complexity = b64_to_str(article.get("complexity_b64", "")).strip()
 
     md = f"# {title}\n\n"
 
@@ -172,11 +199,14 @@ def render_markdown(article: dict) -> str:
     md += "## 4. Approaches\n\n"
 
     for app in approaches:
-        name = app["name"].strip()
-        explanation = app["explanation"].strip()
-        cpp_code = app["cpp"].rstrip()
-        java_code = app["java"].rstrip()
-        py_code = app["python"].rstrip()
+        name = b64_to_str(app.get("name_b64", "")).strip()
+        explanation = b64_to_str(app.get("explanation_b64", "")).strip()
+        cpp_code = b64_to_str(app.get("cpp_b64", "")).rstrip()
+        java_code = b64_to_str(app.get("java_b64", "")).rstrip()
+        py_code = b64_to_str(app.get("python_b64", "")).rstrip()
+
+        if not name:
+            continue
 
         md += f"### {name}\n\n"
         md += f"{explanation}\n\n"
@@ -212,7 +242,6 @@ def render_markdown(article: dict) -> str:
     md += f"{complexity}\n"
 
     return md
-
 
 
 # -------------------------------------------------------------
@@ -268,7 +297,7 @@ def main():
     new_slugs = []
 
     for article in articles:
-        raw_title = article["title"]
+        raw_title = b64_to_str(article.get("title_b64", "")).strip() or "topic"
         slug = slugify(raw_title)
         base_slug = slug
         i = 1
